@@ -1,0 +1,80 @@
+[1mdiff --git a/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/Homework3.java b/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/Homework3.java[m
+[1mindex 1fd260f..68e552d 100644[m
+[1m--- a/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/Homework3.java[m
+[1m+++ b/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/Homework3.java[m
+[36m@@ -23,6 +23,37 @@[m [mpublic class Homework3 {[m
+   public static void smoosh(int[] ints) {[m
+     // Fill in your solution here.  (Ours is twelve lines long, not counting[m
+     // blank lines or lines already present in this file.)[m
+[32m+[m	[32m  int index = 0;[m
+[32m+[m[41m	  [m
+[32m+[m[41m	  [m
+[32m+[m	[32m// If there are no duplicates, loop whole array[m
+[32m+[m	[32m// else if there are duplicates, then move duplicate to end and reduce loop limit by 1[m
+[32m+[m	[32m  int lim = ints.length;[m
+[32m+[m[41m	  [m
+[32m+[m	[32m  while( index < lim){[m
+[32m+[m		[32m  // check if there are duplicates, if so move to end, move all elements 1 left and make limit down by 1[m
+[32m+[m		[32m  if((index + 1) < ints.length && ints[index] == ints[index+1]){[m
+[32m+[m			[32m  for(int index2 = index + 1; index2 < ints.length-1; index2++){[m
+[32m+[m				[32m  ints[index2] = ints[index2+1];[m
+[32m+[m			[32m  }[m
+[32m+[m			[32m  ints[ints.length-1] = -1;[m
+[32m+[m			[32m  lim--;[m
+[32m+[m		[32m  }else{[m
+[32m+[m			[32m  index++;[m
+[32m+[m		[32m  }[m
+[32m+[m[41m		  [m
+[32m+[m[41m		  [m
+[32m+[m	[32m  }[m
+[32m+[m[41m	  [m
+[32m+[m	[32m  /*for(int index = 0; index < ints.length; index++){[m
+[32m+[m		[32m  if((index + 1) < ints.length && ints[index]  == ints[index+1]){[m
+[32m+[m			[32m  for(int index2 = index + 1; index2 < ints.length-1; index2++){[m
+[32m+[m				[32m  ints[index2] = ints[index2+1];[m
+[32m+[m			[32m  }[m
+[32m+[m			[32m  ints[ints.length-1] = -1;[m
+[32m+[m			[32m  index++;[m
+[32m+[m		[32m  }[m
+[32m+[m	[32m  }*/[m
+   }[m
+ [m
+   /**[m
+[1mdiff --git a/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/SList.java b/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/SList.java[m
+[1mindex 792fe74..5c7f8f5 100644[m
+[1m--- a/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/SList.java[m
+[1m+++ b/src/main/java/edu/berkeley/cs/cs61b/hw/hw3/SList.java[m
+[36m@@ -112,9 +112,16 @@[m [mpublic class SList {[m
+    *  operator, to compare items.[m
+    **/[m
+ [m
+[31m-  public void squish() {[m
+[31m-    // Fill in your solution here.  (Ours is eleven lines long.)[m
+[31m-  }[m
+[32m+[m	[32mpublic void squish() {[m
+[32m+[m		[32mSListNode current = head;[m
+[32m+[m		[32mwhile (current != null) {[m
+[32m+[m			[32mif (current.next != null && current.item.equals(current.next.item)) {[m
+[32m+[m				[32mcurrent.next = current.next.next;[m
+[32m+[m				[32mcontinue;[m
+[32m+[m			[32m}[m
+[32m+[m			[32mcurrent = current.next;[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+ [m
+   /**[m
+    *  twin() takes this list and doubles its length by replacing each node[m
+[36m@@ -128,7 +135,12 @@[m [mpublic class SList {[m
+    **/[m
+ [m
+   public void twin() {[m
+[31m-    // Fill in your solution here.  (Ours is seven lines long.)[m
+[32m+[m	[32m  SListNode current= head;[m
+[32m+[m	[32m  while(current != null){[m
+[32m+[m		[32m  SListNode node= new SListNode(current.item, current.next);[m
+[32m+[m		[32m  current.next = node;[m
+[32m+[m		[32m  current = node.next;[m
+[32m+[m	[32m  }[m
+   }[m
+ [m
+   /**[m
